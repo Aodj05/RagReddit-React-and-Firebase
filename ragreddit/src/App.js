@@ -30,7 +30,7 @@ const App = () => {
           {posts.map((post) => (
             <Post post={post} key={post.id} />
           ))}
-        </Vstack>
+        </VStack>
       </Container>
     </>
   );

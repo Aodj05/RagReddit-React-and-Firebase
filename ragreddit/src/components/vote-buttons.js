@@ -1,5 +1,5 @@
 import { IconButton, Text, VStack } from "@chakra-ui/react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FiArrowDown, FiArrowUp } from "react-icons/fi";
 import fire from "../lib/firebase";
 
@@ -22,7 +22,7 @@ const VoteButtons = ({ post }) => {
         setVotedPosts(previousVotes);
     }, []);
 
-    const handleDisablingOfCoting (postId) => {
+    const handleDisablingOfVoting = (postId) => {
         //disable voting after user has voted. Fetch previous voted item from localstorage
         //update item on localstorage
         const previousVotes = votedPosts;
@@ -56,9 +56,9 @@ const VoteButtons = ({ post }) => {
         });
 
         //disable vote button once vote successful
-        handleDisablingOfCoting(post.id);
+        handleDisablingOfVoting(post.id);
 
-        setVoting(true);
+        setVoting(false);
     };
 
     const checkIfPostIsAlreadyVoted = () => {
@@ -93,7 +93,7 @@ const VoteButtons = ({ post }) => {
               icon={<FiArrowDown />}
               onClick={() => handleClick("downvote")}
               isLoading={isVoting}
-              isDisabled={checkIfPostIsAlreadyVoted}
+              isDisabled={checkIfPostIsAlreadyVoted()}
             />
             <Text bg="yellow.100" rounded="md" w="100%" p={1}>
               {post.upVotesCount}

@@ -1,8 +1,8 @@
-import fire from "./lib/firebase";
-import { doc, collection, query, where, onSnapshot, getFirestore } from "firebase/firestore";
 import { Container, Flex, Spinner, VStack } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
+import Navbar from "./components/navbar";
 import Post from "./components/post";
+import fire from "./lib/firebase";
 
 
 
@@ -23,6 +23,7 @@ const App = () => {
 
   return (
     <>
+      <Navbar />
       <Container maxW="md" centerContent p={8}>
         <VStack spacing={8} w="100%">
           {posts.map((post) => (

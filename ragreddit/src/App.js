@@ -21,6 +21,21 @@ const App = () => {
     });
   }, []);
 
+  useEffect(() => {
+    //hook to handle realtime updates
+    fire.firestore().collection("posts").orderBy("createdAt", "desc").onSnapshot((querySnapshot) => {
+      const _posts = [];
+
+      querySnapshot.forEach((doc) => {
+        _posts.push({
+          id: doc.id,
+          ...doc.data(),
+        });
+      });
+      setPosts(_posts);
+    });
+  }, []);
+
   return (
     <>
       <Navbar />

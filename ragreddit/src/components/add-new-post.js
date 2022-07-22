@@ -24,7 +24,7 @@ const AddNewPost = () => {
     const handleSubmit = async () => {
         const date = new Date();
 
-        await fire.collection("posts").add({
+        await fire.firestore().collection("posts").add({
             title,
             upVotesCount: 0,
             downVotesCount: 0,
@@ -75,3 +75,5 @@ const AddNewPost = () => {
         </>
       );
 };
+
+export default AddNewPost;

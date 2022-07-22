@@ -1,7 +1,9 @@
-import { Container, Flex, Spinner, VStack } from "@chakra-ui/core";
+import fire from "./lib/firebase";
+import { doc, collection, query, where, onSnapshot, getFirestore } from "firebase/firestore";
+import { Container, Flex, Spinner, VStack } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import Post from "./components/post";
-import db from "./lib/firebase";
+
 
 
 const App = () => {
@@ -10,17 +12,13 @@ const App = () => {
   useEffect(() => {
     //post fetching
 
-    db.collection("posts")
-      .orderBy("createdAt", "desc")
-      .get()
-      .then((querySnapshot) => {
-        const data = querySnapshot.docs.map((doc) => ({
-          id: doc.id,
-          ...doc.data(),
-        }));
-
-        setPosts(data);
-      });
+    fire.firestore().collection('posts').orderBy('createdAt', 'desc').get().then((querySnapshot) => {
+      const data = querySnapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      setPosts(data);
+    });
   }, []);
 
   return (
